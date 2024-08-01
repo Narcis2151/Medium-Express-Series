@@ -1,7 +1,7 @@
 {
-  "name": "Express-Series",
+  "name": "express-series",
   "version": "1.0.0",
-  "main": "app.ts",
+  "main": "src/app.ts",
   "author": "Narcis",
   "license": "MIT",
   "scripts": {
@@ -14,8 +14,11 @@
     "bcrypt": "^5.1.1",
     "config": "^3.3.12",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.12",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "pino": "^9.3.2",
     "prisma": "^5.17.0",
     "zod": "^3.23.8"
   },
@@ -27,6 +30,7 @@
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^22.0.0",
+    "@types/pino": "^7.0.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.4"
   }

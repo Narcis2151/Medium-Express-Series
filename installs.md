@@ -1,13 +1,33 @@
+# Project Initialization and Dependencies
+
+## Initialize the project and typescript
+
+```bash
 yarn init
+yarn add typescript -D
+npx tsc --init
+```
 
-yarn add express zod config cors express prisma bcrypt jsonwebtoken
+## Install the dependencies
 
-yarn add @types/body-parser @types/config @types/cors @types/express @types/node @types/bcrypt @types/jsonwebtoken ts-node-dev typescript -D
+```bash
+yarn add express zod config cors express prisma bcrypt jsonwebtoken dotenv dayjs pino
 
+yarn add @types/body-parser @types/config @types/cors @types/express @types/node @types/bcrypt @types/jsonwebtoken @types/pino ts-node-dev typescript -D
+```
+
+## Initialize Prisma
+
+```bash
 npx prisma init
+```
 
+## Add the following scripts to the package.json
+
+```
 "scripts": {
-    "dev": "tsnd --respawn --transpile-only src/app.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "dev": "tsnd --respawn --transpile-only src/app.ts"
 }
+```
