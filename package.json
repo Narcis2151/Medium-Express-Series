@@ -5,9 +5,9 @@
   "author": "Narcis",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --respawn --transpile-only src/app.ts",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "dev": "tsnd --respawn --transpile-only src/app.ts"
   },
   "dependencies": {
     "@prisma/client": "5.17.0",
