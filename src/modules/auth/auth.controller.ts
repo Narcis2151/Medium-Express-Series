@@ -5,9 +5,9 @@ export async function register(req: Request, res: Response) {
   const {email, username, password} = req.body;
   try {
     const token = await registerUser(email, username, password);
-    res.status(201).json({token});
+    res.status(200).send({token});
   } catch (error: any) {
-    res.status(400).json({message: 'Registration failed', error: error.message});
+    res.status(400).send({message: 'Registration failed', error: error.message});
   }
 };
 
@@ -15,8 +15,8 @@ export async function login(req: Request, res: Response) {
   const {email, password} = req.body;
   try {
     const token = await loginUser(email, password);
-    res.json({token});
+    res.status(200).send({token});
   } catch (error: any) {
-    res.status(400).json({message: 'Login failed', error: error.message});
+    res.status(400).send({message: 'Login failed', error: error.message});
   }
 };
