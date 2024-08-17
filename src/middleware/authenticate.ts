@@ -9,8 +9,8 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
 
   try {
     const decoded = jwt.verify(token, 'your-secret-key');
-    if (typeof decoded !== 'string' && 'userId' in decoded) {
-      res.locals.user = (decoded as JwtPayload).userId;
+    if (typeof decoded !== 'string' && 'id' in decoded) {
+      res.locals.user = (decoded as JwtPayload).id;
       next();
     } else {
       res.status(401).json({message: 'Invalid token'});
