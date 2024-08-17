@@ -7,17 +7,18 @@ import {
   getArticlesHandler,
   updateArticleHandler,
 } from "./articles.controller";
+import {authenticate} from '../../middleware/authenticate';
 
 const router = Router();
 
 router.get("/", getArticlesHandler);
 
-router.post("/", createArticleHandler);
+router.post("/", authenticate, createArticleHandler);
 
 router.get("/:id", getArticleByIdHandler);
 
-router.put("/:id", updateArticleHandler);
+router.put("/:id", authenticate, updateArticleHandler);
 
-router.delete("/:id", deleteArticleHandler);
+router.delete("/:id", authenticate, deleteArticleHandler);
 
 export default router;
