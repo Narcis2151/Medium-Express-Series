@@ -1,7 +1,7 @@
 import express from "express";
 
 import articlesRouter from "./modules/articles/articles.routes";
-import authRouter from "./modules/auth/auth.routes";
+import authenticationRouter from "./modules/authentication/authentication.routes";
 
 const app = express();
 
@@ -11,7 +11,7 @@ app.get("/healthcheck", (_req, res) => {
   res.send("API is up and running!");
 });
 
-app.use('/auth', authRouter);
+app.use("/authentication", authenticationRouter);
 app.use("/articles", articlesRouter);
 
 app.listen(3000, () => {
