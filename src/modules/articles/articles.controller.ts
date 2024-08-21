@@ -1,14 +1,11 @@
-import {
-  Request,
-  Response
-} from 'express';
+import { Request, Response } from "express";
 
 import {
   getArticles,
   createArticle,
   getArticleById,
   updateArticle,
-  deleteArticle
+  deleteArticle,
 } from "./articles.service";
 
 export async function getArticlesHandler(req: Request, res: Response) {

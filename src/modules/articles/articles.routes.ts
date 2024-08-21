@@ -1,4 +1,4 @@
-import {Router} from "express";
+import { Router } from "express";
 
 import {
   createArticleHandler,
@@ -7,7 +7,7 @@ import {
   getArticlesHandler,
   updateArticleHandler,
 } from "./articles.controller";
-import {authenticate} from '../../middleware/authenticate';
+import { authenticate } from "../../middleware/authenticate";
 
 const router = Router();
 
