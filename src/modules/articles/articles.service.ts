@@ -27,6 +27,7 @@ export async function updateArticle(articleId: number, data: { title: string; co
   return prisma.article.update({
     where: {
       id: articleId,
+      authorId: userId,
     },
     data: {
       ...data,
@@ -35,10 +36,11 @@ export async function updateArticle(articleId: number, data: { title: string; co
   });
 }
 
-export async function deleteArticle(articleId: number) {
+export async function deleteArticle(articleId: number, userId: number) {
   return prisma.article.delete({
     where: {
       id: articleId,
+      authorId: userId,
     },
   });
 }

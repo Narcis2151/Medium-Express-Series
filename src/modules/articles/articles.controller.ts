@@ -34,6 +34,6 @@ export async function updateArticleHandler(req: Request, res: Response) {
 }
 
 export async function deleteArticleHandler(req: Request, res: Response) {
-  await deleteArticle(Number(req.params.id));
+  await deleteArticle(Number(req.params.id), res.locals.user);
   return res.status(204).send();
 }
