@@ -63,10 +63,13 @@ export async function updateArticleHandler(
   }
 }
 
-export async function deleteArticleHandler(req: Request, res: Response) {
+export async function deleteArticleHandler(
+  req: Request<ArticleParams>,
+  res: Response
+) {
   try {
     const userId = res.locals.user;
-    await deleteArticle(Number(req.params.id), Number(userId));
+    await deleteArticle(Number(req.params.articleId), Number(userId));
     return res.status(204).send();
   } catch (e: any) {
     console.error(e.message);
