@@ -3,7 +3,7 @@
 ## Initialize the project and typescript
 
 ```bash
-yarn init
+yarn init -y
 yarn add typescript -D
 npx tsc --init
 ```
