@@ -1,5 +1,5 @@
-import {PrismaClient} from "@prisma/client";
-import {CreateArticleInput, UpdateArticleInput} from "./articles.schemas";
+import { PrismaClient } from "@prisma/client";
+import { CreateArticleInput, UpdateArticleInput } from "./articles.schemas";
 
 const prisma = new PrismaClient();
 
@@ -32,7 +32,11 @@ export async function getArticleById(articleId: number) {
   return article;
 }
 
-export async function updateArticle(articleId: number, data: UpdateArticleInput["body"], userId: number) {
+export async function updateArticle(
+  articleId: number,
+  data: UpdateArticleInput["body"],
+  userId: number
+) {
   const updatedArticle = await prisma.article.update({
     where: {
       id: articleId,

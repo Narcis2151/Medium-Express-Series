@@ -1,23 +1,27 @@
-import {
-  Request,
-  Response
-} from 'express';
+import { Request, Response } from "express";
 
 import {
   getArticles,
   createArticle,
   getArticleById,
   updateArticle,
-  deleteArticle
+  deleteArticle,
 } from "./articles.service";
-import {ArticleParams, CreateArticleInput, UpdateArticleInput} from "./articles.schemas";
+import {
+  ArticleParams,
+  CreateArticleInput,
+  UpdateArticleInput,
+} from "./articles.schemas";
 
 export async function getArticlesHandler(req: Request, res: Response) {
   const articles = await getArticles();
   return res.status(200).send(articles);
 }
 
-export async function createArticleHandler(req: Request<{}, {}, CreateArticleInput>, res: Response) {
+export async function createArticleHandler(
+  req: Request<{}, {}, CreateArticleInput>,
+  res: Response
+) {
   try {
     const userId = res.locals.user;
     const article = await createArticle(req.body, userId);
@@ -28,7 +32,10 @@ export async function createArticleHandler(req: Request<{}, {}, CreateArticleInp
   }
 }
 
-export async function getArticleByIdHandler(req: Request<ArticleParams>, res: Response) {
+export async function getArticleByIdHandler(
+  req: Request<ArticleParams>,
+  res: Response
+) {
   try {
     const article = await getArticleById(Number(req.params.articleId));
     return res.status(200).send(article);
@@ -38,10 +45,17 @@ export async function getArticleByIdHandler(req: Request<ArticleParams>, res: Re
   }
 }
 
-export async function updateArticleHandler(req: Request<UpdateArticleInput["params"], {}, UpdateArticleInput["body"]>, res: Response) {
+export async function updateArticleHandler(
+  req: Request<UpdateArticleInput["params"], {}, UpdateArticleInput["body"]>,
+  res: Response
+) {
   try {
     const userId = res.locals.user;
-    const article = await updateArticle(Number(req.params.articleId), req.body, userId);
+    const article = await updateArticle(
+      Number(req.params.articleId),
+      req.body,
+      userId
+    );
     return res.status(200).send(article);
   } catch (e: any) {
     console.error(e.message);

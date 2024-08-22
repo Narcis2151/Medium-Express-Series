@@ -3,7 +3,7 @@ import express from "express";
 import articlesRouter from "./modules/articles/articles.routes";
 import authenticationRoutes from "./modules/authentication/authentication.routes";
 import authorizationRoutes from "./modules/authorization/authorization.routes";
-import {errorHandler} from "./middleware/errorHandler";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 
@@ -14,8 +14,8 @@ app.get("/healthcheck", (_req, res) => {
   res.send("API is up and running!");
 });
 
-app.use('/authentication', authenticationRoutes);
-app.use('/authorization', authorizationRoutes);
+app.use("/authentication", authenticationRoutes);
+app.use("/authorization", authorizationRoutes);
 app.use("/articles", articlesRouter);
 
 app.listen(3000, () => {
