@@ -4,30 +4,27 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function registerUser(registerInput: {
-  email: string;
-  username: string;
-  password: string;
-}) {
-  const hashedPassword = await bcrypt.hash(registerInput.password, 10);
+export async function registerUser(
+  email: string,
+  username: string,
+  password: string
+) {
+  const hashedPassword = await bcrypt.hash(password, 10);
   const user = await prisma.user.create({
     data: {
-      email: registerInput.email,
-      username: registerInput.username,
+      email: email,
+      username: username,
       password: hashedPassword,
     },
   });
   return generateToken(user.id);
 }
 
-export async function loginUser(loginInput: {
-  email: string;
-  password: string;
-}) {
+export async function loginUser(email: string, password: string) {
   const user = await prisma.user.findUnique({
-    where: { email: loginInput.email },
+    where: { email: email },
   });
-  if (!user || !(await bcrypt.compare(loginInput.password, user.password))) {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new Error("Invalid credentials");
   }
   return generateToken(user.id);
