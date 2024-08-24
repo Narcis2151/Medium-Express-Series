@@ -7,11 +7,6 @@ import {
   updateArticle,
   deleteArticle,
 } from "./articles.service";
-import {
-  ArticleParams,
-  CreateArticleInput,
-  UpdateArticleInput,
-} from "./articles.schemas";
 
 export async function getArticlesHandler(req: Request, res: Response) {
   const articles = await getArticles();
@@ -19,7 +14,7 @@ export async function getArticlesHandler(req: Request, res: Response) {
 }
 
 export async function createArticleHandler(
-  req: Request<{}, {}, CreateArticleInput>,
+  req: Request,
   res: Response
 ) {
   try {
@@ -33,7 +28,7 @@ export async function createArticleHandler(
 }
 
 export async function getArticleByIdHandler(
-  req: Request<ArticleParams>,
+  req: Request,
   res: Response
 ) {
   try {
@@ -46,7 +41,7 @@ export async function getArticleByIdHandler(
 }
 
 export async function updateArticleHandler(
-  req: Request<UpdateArticleInput["params"], {}, UpdateArticleInput["body"]>,
+  req: Request,
   res: Response
 ) {
   try {
@@ -64,7 +59,7 @@ export async function updateArticleHandler(
 }
 
 export async function deleteArticleHandler(
-  req: Request<ArticleParams>,
+  req: Request,
   res: Response
 ) {
   try {

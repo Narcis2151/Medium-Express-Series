@@ -5,7 +5,6 @@ import {
   getRoleRequests,
   handleRoleRequest,
 } from "./authorization.service";
-import { UpdateRoleInput } from "./authorization.schemas";
 
 export async function requestWriterRole(req: Request, res: Response) {
   const userId = res.locals.user;
@@ -27,7 +26,7 @@ export async function viewRoleRequests(req: Request, res: Response) {
 }
 
 export async function updateRoleRequest(
-  req: Request<UpdateRoleInput["params"], {}, UpdateRoleInput["body"]>,
+  req: Request,
   res: Response
 ) {
   const { id } = req.params;

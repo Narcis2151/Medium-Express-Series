@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { CreateArticleInput, UpdateArticleInput } from "./articles.schemas";
 
 const prisma = new PrismaClient();
 
@@ -7,7 +6,10 @@ export async function getArticles() {
   return prisma.article.findMany();
 }
 
-export async function createArticle(data: CreateArticleInput, userId: number) {
+export async function createArticle(
+  data: { title: string; content: string },
+  userId: number
+) {
   const createdArticle = await prisma.article.create({
     data: {
       ...data,
@@ -34,7 +36,7 @@ export async function getArticleById(articleId: number) {
 
 export async function updateArticle(
   articleId: number,
-  data: UpdateArticleInput["body"],
+  data: { title: string; content: string },
   userId: number
 ) {
   const updatedArticle = await prisma.article.update({
