@@ -1,10 +1,14 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import {PrismaClient} from '@prisma/client';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function registerUser(email: string, username: string, password: string) {
+export async function registerUser(
+  email: string,
+  username: string,
+  password: string
+) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await prisma.user.create({
     data: {
@@ -14,18 +18,21 @@ export async function registerUser(email: string, username: string, password: st
     },
   });
   return generateToken(user.id);
-};
+}
 
 export async function loginUser(email: string, password: string) {
   const user = await prisma.user.findUnique({
-    where: {email},
+    where: { email },
   });
-  if (!user || !await bcrypt.compare(password, user.password)) {
-    throw new Error('Invalid credentials');
+  if (
+    !user ||
+    !(user.password && (await bcrypt.compare(password, user.password)))
+  ) {
+    throw new Error("Invalid credentials");
   }
   return generateToken(user.id);
-};
+}
 
 function generateToken(userId: number) {
-  return jwt.sign({id: userId}, 'your-secret-key', {expiresIn: '24h'});
-};
+  return jwt.sign({ id: userId }, "your-secret-key", { expiresIn: "24h" });
+}

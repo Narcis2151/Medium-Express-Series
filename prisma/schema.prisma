@@ -32,8 +32,9 @@ model User {
   id       Int           @id @default(autoincrement())
   email    String        @unique
   username String
-  password String
+  password String?       // Password is nullable for OAuth users
   role     Role          @default(READER)
+  googleId String?       @unique
   articles Article[]
   requests RoleRequest[]
 }
