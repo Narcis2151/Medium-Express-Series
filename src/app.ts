@@ -3,12 +3,10 @@ import express from "express";
 import articlesRouter from "./modules/articles/articles.routes";
 import authenticationRoutes from "./modules/authentication/authentication.routes";
 import authorizationRoutes from "./modules/authorization/authorization.routes";
-import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 
 app.use(express.json());
-app.use(errorHandler);
 
 app.get("/healthcheck", (_req, res) => {
   res.send("API is up and running!");
