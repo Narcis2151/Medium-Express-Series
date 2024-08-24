@@ -66,3 +66,4 @@ export async function deleteArticle(articleId: number, userId: number) {
     throw new Error("Article not found");
   }
 }
+
