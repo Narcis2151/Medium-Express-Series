@@ -10,20 +10,28 @@ export async function createArticle(
   data: { title: string; content: string },
   userId: number
 ) {
-  return prisma.article.create({
+  const createdArticle = await prisma.article.create({
     data: {
       ...data,
       authorId: userId,
     },
   });
+  if (!createdArticle) {
+    throw new Error("Article not created");
+  }
+  return createdArticle;
 }
 
 export async function getArticleById(articleId: number) {
-  return prisma.article.findUnique({
+  const article = await prisma.article.findUnique({
     where: {
       id: articleId,
     },
   });
+  if (!article) {
+    throw new Error("Article not found");
+  }
+  return article;
 }
 
 export async function updateArticle(
@@ -31,7 +39,7 @@ export async function updateArticle(
   data: { title: string; content: string },
   userId: number
 ) {
-  return prisma.article.update({
+  const updatedArticle = await prisma.article.update({
     where: {
       id: articleId,
       authorId: userId,
@@ -41,13 +49,21 @@ export async function updateArticle(
       authorId: userId,
     },
   });
+  if (!updatedArticle) {
+    throw new Error("Article not found");
+  }
+  return updatedArticle;
 }
 
 export async function deleteArticle(articleId: number, userId: number) {
-  return prisma.article.delete({
+  const deletedArticle = await prisma.article.delete({
     where: {
       id: articleId,
       authorId: userId,
     },
   });
+  if (!deletedArticle) {
+    throw new Error("Article not found");
+  }
 }
+

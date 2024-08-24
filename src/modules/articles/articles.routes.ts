@@ -8,17 +8,23 @@ import {
   updateArticleHandler,
 } from "./articles.controller";
 import { authenticate } from "../../middleware/authenticate";
+import { authorize } from "../../middleware/authorize";
 
 const router = Router();
 
 router.get("/", getArticlesHandler);
-
-router.post("/", authenticate, createArticleHandler);
-
-router.get("/:id", getArticleByIdHandler);
-
-router.put("/:id", authenticate, updateArticleHandler);
-
-router.delete("/:id", authenticate, deleteArticleHandler);
+router.get("/:articleId", getArticleByIdHandler);
+router.post("/", [authenticate, authorize(["WRITER"])], createArticleHandler);
+router.put(
+  "/:articleId",
+  [authenticate, authorize(["WRITER"])],
+  updateArticleHandler
+);
+router.delete(
+  "/:articleId",
+  [authenticate, authorize(["WRITER"])],
+  deleteArticleHandler
+);
 
 export default router;
+
