@@ -19,12 +19,12 @@ export async function requestRoleChange(userId: number, role: Role) {
 }
 
 export async function getRoleRequests() {
-  return await prisma.roleRequest.findMany({ where: { status: "PENDING" } });
+  return prisma.roleRequest.findMany({ where: { status: "PENDING" } });
 }
 
 export async function handleRoleRequest(
   requestId: number,
-  status: RoleRequestStatus
+  status: RoleRequestStatus,
 ) {
   const roleRequest = await prisma.roleRequest.findUnique({
     where: { id: requestId },

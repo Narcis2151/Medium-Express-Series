@@ -7,6 +7,11 @@ import {
   updateArticle,
   deleteArticle,
 } from "./articles.service";
+import {
+  ArticleParamsInput,
+  CreateArticleInput,
+  UpdateArticleInput,
+} from "./articles.schemas";
 
 export async function getArticlesHandler(req: Request, res: Response) {
   const articles = await getArticles();
@@ -14,8 +19,8 @@ export async function getArticlesHandler(req: Request, res: Response) {
 }
 
 export async function createArticleHandler(
-  req: Request,
-  res: Response
+  req: Request<{}, {}, CreateArticleInput>,
+  res: Response,
 ) {
   try {
     const userId = res.locals.user;
@@ -28,8 +33,8 @@ export async function createArticleHandler(
 }
 
 export async function getArticleByIdHandler(
-  req: Request,
-  res: Response
+  req: Request<ArticleParamsInput>,
+  res: Response,
 ) {
   try {
     const article = await getArticleById(Number(req.params.articleId));
@@ -41,15 +46,15 @@ export async function getArticleByIdHandler(
 }
 
 export async function updateArticleHandler(
-  req: Request,
-  res: Response
+  req: Request<UpdateArticleInput["params"], {}, UpdateArticleInput["body"]>,
+  res: Response,
 ) {
   try {
     const userId = res.locals.user;
     const article = await updateArticle(
       Number(req.params.articleId),
       req.body,
-      userId
+      userId,
     );
     return res.status(200).send(article);
   } catch (e: any) {
@@ -59,8 +64,8 @@ export async function updateArticleHandler(
 }
 
 export async function deleteArticleHandler(
-  req: Request,
-  res: Response
+  req: Request<ArticleParamsInput>,
+  res: Response,
 ) {
   try {
     const userId = res.locals.user;
@@ -71,4 +76,3 @@ export async function deleteArticleHandler(
     return res.status(400).send(e.message);
   }
 }
-
