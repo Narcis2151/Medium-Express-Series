@@ -8,7 +8,7 @@ export async function getArticles() {
 
 export async function createArticle(
   data: { title: string; content: string },
-  userId: number
+  userId: number,
 ) {
   const createdArticle = await prisma.article.create({
     data: {
@@ -37,7 +37,7 @@ export async function getArticleById(articleId: number) {
 export async function updateArticle(
   articleId: number,
   data: { title: string; content: string },
-  userId: number
+  userId: number,
 ) {
   const updatedArticle = await prisma.article.update({
     where: {
@@ -66,4 +66,3 @@ export async function deleteArticle(articleId: number, userId: number) {
     throw new Error("Article not found");
   }
 }
-
