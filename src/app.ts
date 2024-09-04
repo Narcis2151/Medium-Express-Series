@@ -5,6 +5,7 @@ import articlesRouter from "./modules/articles/articles.routes";
 import googleAuthRouter from "./modules/authentication/googleAuth.routes";
 import authenticationRoutes from "./modules/authentication/authentication.routes";
 import authorizationRoutes from "./modules/authorization/authorization.routes";
+import followingRoutes from "./modules/following/following.routes";
 import "./modules/authentication/passport"; // Import the Passport configuration
 import { errorHandler } from "./middleware/errorHandler";
 
@@ -22,6 +23,7 @@ app.use("/authentication", authenticationRoutes);
 app.use("/authentication", googleAuthRouter);
 app.use("/authorization", authorizationRoutes);
 app.use("/articles", articlesRouter);
+app.use("/following", followingRoutes);
 
 app.listen(3000, () => {
   console.log("App is running!");

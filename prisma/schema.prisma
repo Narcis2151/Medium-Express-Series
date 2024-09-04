@@ -29,14 +29,27 @@ model Article {
 }
 
 model User {
-  id       Int           @id @default(autoincrement())
-  email    String        @unique
-  username String
-  password String?       // Password is nullable for OAuth users
-  role     Role          @default(READER)
-  googleId String?       @unique
-  articles Article[]
-  requests RoleRequest[]
+  id        Int            @id @default(autoincrement())
+  email     String         @unique
+  username  String
+  password  String? // Password is nullable for OAuth users
+  role      Role           @default(READER)
+  googleId  String?        @unique
+  articles  Article[]
+  requests  RoleRequest[]
+  followers UserFollower[] @relation("followers")
+  following UserFollower[] @relation("following")
+}
+
+model UserFollower {
+  id          Int      @id @default(autoincrement())
+  followerId  Int
+  followingId Int
+  follower    User     @relation("followers", fields: [followerId], references: [id])
+  following   User     @relation("following", fields: [followingId], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@unique([followerId, followingId])
 }
 
 enum RoleRequestStatus {
