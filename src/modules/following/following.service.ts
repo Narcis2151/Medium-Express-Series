@@ -6,30 +6,27 @@ export async function getFeedArticles(
   userId: number,
   limit: number,
   offset: number,
-  search: string | undefined
+  search: string
 ) {
   const followedUsers = await prisma.userFollower.findMany({
     where: {
       followerId: userId,
     },
   });
-
-  const followedUserIds = followedUsers.map((user) => user.id);
-
   return prisma.article.findMany({
     where: {
       authorId: {
-        in: followedUserIds,
+        in: followedUsers.map((user) => user.followingId),
       },
       OR: [
         {
           title: {
-            contains: search || "",
+            contains: search,
           },
         },
         {
           content: {
-            contains: search || "",
+            contains: search,
           },
         },
       ],

@@ -13,12 +13,11 @@ export async function getFeedArticlesHandler(
   res: Response
 ) {
   const userId = res.locals.user;
-  const { limit, offset, search } = req.query;
-
+  const { limit = 5, offset = 0, search = "" } = req.query;
   const articles = await getFeedArticles(
     userId,
-    Number(limit) | 5,
-    Number(offset) | 0,
+    Number(limit),
+    Number(offset),
     search
   );
 
