@@ -8,14 +8,13 @@ jest.mock("@prisma/client", () => {
     user: {
       findUnique: jest.fn(),
       create: jest.fn(),
+      update: jest.fn(),
     },
     article: {
       findMany: jest.fn(),
+      findUnique: jest.fn(),
       create: jest.fn(),
-    },
-    userFollower: {
-      findMany: jest.fn(),
-      create: jest.fn(),
+      update: jest.fn(),
       delete: jest.fn(),
     },
   };
@@ -37,9 +36,12 @@ jest.mock("passport-google-oauth20", () => {
 jest.mock("./src/middleware/authenticate", () => {
   return {
     authenticate: jest.fn((req: Request, res: Response, next: NextFunction) => {
-      // Mock user data in the response locals
-      res.locals.user = 1; // Mock a user ID to simulate an authenticated user
-      return next();
+      const token = req.headers.authorization?.split(" ")[1];
+      if (!token) {
+        return res.status(401).json({ message: "No token provided" });
+      }
+      res.locals.user = 1;
+      next();
     }),
   };
 });
@@ -48,7 +50,11 @@ jest.mock("./src/middleware/authorize", () => {
   return {
     authorize: jest.fn((roles: string[]) => {
       return async (req: Request, res: Response, next: NextFunction) => {
-        return next();
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token || !roles.includes(token)) {
+          return res.status(403).json({ message: "Unauthorized" });
+        }
+        next();
       };
     }),
   };

@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
-    "dev": "tsnd --respawn --transpile-only src/app.ts"
+    "dev": "tsnd --respawn --transpile-only src/app.ts",
+    "test": "jest"
   },
   "dependencies": {
     "@prisma/client": "5.17.0",
