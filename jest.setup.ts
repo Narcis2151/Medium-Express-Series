@@ -1,7 +1,4 @@
-import { PrismaClient } from "@prisma/client";
 import { Request, Response, NextFunction } from "express";
-import passport from "passport";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
 jest.mock("@prisma/client", () => {
   const mockPrisma = {
@@ -21,7 +18,6 @@ jest.mock("@prisma/client", () => {
   return { PrismaClient: jest.fn(() => mockPrisma) };
 });
 
-// Mock the Google OAuth strategy to avoid requiring client ID and secret during testing
 jest.mock("passport-google-oauth20", () => {
   return {
     Strategy: jest.fn((options, verify) => {
