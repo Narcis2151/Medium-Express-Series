@@ -17,13 +17,34 @@ const router = Router();
  * /authorization/request-writer:
  *   post:
  *     tags:
- *      - Authorization
+ *       - Authorization
  *     summary: Request writer role
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Request sent
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *               example:
+ *                 message: "Request for writer role submitted"
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Unauthorized'
  */
 router.post("/request-writer", [authenticate], requestWriterRole);
 
@@ -32,13 +53,31 @@ router.post("/request-writer", [authenticate], requestWriterRole);
  * /authorization/role-requests:
  *   get:
  *     tags:
- *      - Authorization
+ *       - Authorization
  *     summary: View role requests
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: A list of role requests
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/RoleRequest'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Unauthorized'
+ *       403:
+ *         description: Forbidden (Requires ADMIN role)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Forbidden'
  */
 router.get(
   "/role-requests",
@@ -51,7 +90,7 @@ router.get(
  * /authorization/role-requests/{id}:
  *   post:
  *     tags:
- *      - Authorization
+ *       - Authorization
  *     summary: Update role request
  *     security:
  *       - bearerAuth: []
@@ -69,7 +108,30 @@ router.get(
  *             $ref: '#/components/schemas/UpdateRoleRequest'
  *     responses:
  *       200:
- *         description: Role request updated
+ *         description: Role request accepted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: "Role request ACCEPTED"
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Unauthorized'
+ *       403:
+ *         description: Forbidden (Requires ADMIN role)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Forbidden'
  */
 router.post(
   "/role-requests/:id",

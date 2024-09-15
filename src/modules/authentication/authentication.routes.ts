@@ -11,7 +11,7 @@ const router = Router();
  * /authentication/register:
  *   post:
  *     tags:
- *      - Authentication
+ *       - Authentication
  *     summary: Register a new user
  *     requestBody:
  *       required: true
@@ -21,17 +21,17 @@ const router = Router();
  *             $ref: '#/components/schemas/RegisterUser'
  *     responses:
  *       200:
- *         description: User successfully registered
- *         content: 
- *          application/json:
- *           schema:
- *            type: object
- *           properties:
- *           message:
- *           type: string
- *          example: User successfully registered
+ *         description: User successfully registered and access token returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Authentication'
  *       400:
- *         description: Bad request
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
  */
 router.post("/register", validate(registerSchema), register);
 
@@ -40,7 +40,7 @@ router.post("/register", validate(registerSchema), register);
  * /authentication/login:
  *   post:
  *     tags:
- *      - Authentication
+ *       - Authentication
  *     summary: Login a user
  *     requestBody:
  *       required: true
@@ -50,9 +50,17 @@ router.post("/register", validate(registerSchema), register);
  *             $ref: '#/components/schemas/LoginUser'
  *     responses:
  *       200:
- *         description: User successfully logged in
+ *         description: User successfully logged in and access token returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Authentication'
  *       400:
- *         description: Bad request
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
  */
 router.post("/login", validate(loginSchema), login);
 

@@ -23,17 +23,17 @@ const router = Router();
  * /articles:
  *   get:
  *     tags:
- *      - Articles
+ *       - Articles
  *     summary: Retrieve a list of articles
  *     responses:
  *       200:
  *         description: A list of articles
  *         content:
- *          application/json:
- *          schema:
- *           type: array
- *          items:
- *           $ref: '#/components/schemas/Article'
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Article'
  */
 router.get("/", getArticlesHandler);
 
@@ -42,7 +42,7 @@ router.get("/", getArticlesHandler);
  * /articles/{articleId}:
  *   get:
  *     tags:
- *      - Articles
+ *       - Articles
  *     summary: Retrieve a single article by ID
  *     parameters:
  *       - in: path
@@ -53,12 +53,10 @@ router.get("/", getArticlesHandler);
  *     responses:
  *       200:
  *         description: A single article
-*         content:
- *          application/json:
- *          schema:
- *           type: array
- *          items:
- *           $ref: '#/components/schemas/Article'
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Article'
  */
 router.get("/:articleId", validate(articleParamsSchema), getArticleByIdHandler);
 
@@ -67,7 +65,7 @@ router.get("/:articleId", validate(articleParamsSchema), getArticleByIdHandler);
  * /articles:
  *   post:
  *     tags:
- *      - Articles
+ *       - Articles
  *     summary: Create a new article
  *     security:
  *       - bearerAuth: []
@@ -80,12 +78,28 @@ router.get("/:articleId", validate(articleParamsSchema), getArticleByIdHandler);
  *     responses:
  *       201:
  *         description: The created article
-*         content:
- *          application/json:
- *          schema:
- *           type: array
- *          items:
- *           $ref: '#/components/schemas/Article'
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Article'
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Unauthorized'
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Forbidden'
  */
 router.post(
   "/",
@@ -98,7 +112,7 @@ router.post(
  * /articles/{articleId}:
  *   put:
  *     tags:
- *      - Articles
+ *       - Articles
  *     summary: Update an existing article
  *     security:
  *       - bearerAuth: []
@@ -118,11 +132,27 @@ router.post(
  *       200:
  *         description: The updated article
  *         content:
- *          application/json:
- *          schema:
- *           type: array
- *          items:
- *           $ref: '#/components/schemas/Article'
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Article'
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Unauthorized'
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Forbidden'
  */
 router.put(
   "/:articleId",
@@ -135,7 +165,7 @@ router.put(
  * /articles/{articleId}:
  *   delete:
  *     tags:
- *      - Articles
+ *       - Articles
  *     summary: Delete an article by ID
  *     security:
  *       - bearerAuth: []
@@ -148,6 +178,24 @@ router.put(
  *     responses:
  *       204:
  *         description: No Content
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Unauthorized'
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Forbidden'
  */
 router.delete(
   "/:articleId",

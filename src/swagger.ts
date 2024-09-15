@@ -47,6 +47,63 @@ const swaggerDefinition = {
           },
         },
       },
+      ValidationError: {
+        type: "object",
+        properties: {
+          message: {
+            type: "string",
+            example: "Validation Error",
+          },
+          details: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                message: {
+                  type: "string",
+                  example: "Title is required",
+                },
+              },
+            },
+          },
+        },
+      },
+      Authentication: {
+        type: "object",
+        properties: {
+          token: {
+            type: "string",
+            example: "JWT Token",
+          },
+        },
+      },
+      InvalidCredentials: {
+        type: "object",
+        properties: {
+          message: {
+            type: "string",
+            example: "Invalid credentials",
+          },
+        },
+      },
+      Unauthorized: {
+        type: "object",
+        properties: {
+          message: {
+            type: "string",
+            example: "No token provided",
+          },
+        },
+      },
+      Forbidden: {
+        type: "object",
+        properties: {
+          message: {
+            type: "string",
+            example: "Forbidden",
+          },
+        },
+      },
       CreateArticle: {
         type: "object",
         required: ["title", "content"],
@@ -115,6 +172,29 @@ const swaggerDefinition = {
             type: "string",
             enum: ["APPROVED", "REJECTED"],
             example: "APPROVED",
+          },
+        },
+      },
+      RoleRequest: {
+        type: "object",
+        properties: {
+          id: {
+            type: "integer",
+            example: "1",
+          },
+          role: {
+            type: "string",
+            enum: ["WRITER", "EDITOR"],
+            example: "WRITER",
+          },
+          userId: {
+            type: "integer",
+            example: "1",
+          },
+          status: {
+            type: "string",
+            enum: ["PENDING", "APPROVED", "REJECTED"],
+            example: "PENDING",
           },
         },
       },
