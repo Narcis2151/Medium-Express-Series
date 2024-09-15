@@ -1,4 +1,4 @@
-express-api.snipd.io {
+express-api.website {
     reverse_proxy medium-express-api:3000 {
         header_down Strict-Transport-Security max-age=31536000;
     }
