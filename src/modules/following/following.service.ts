@@ -16,7 +16,7 @@ export async function getFeedArticles(
   return prisma.article.findMany({
     where: {
       authorId: {
-        in: followedUsers.map((user) => user.followingId),
+        in: followedUsers.map((user: any) => user.followingId),
       },
       OR: [
         {
@@ -52,8 +52,8 @@ export async function getFollowingUsers(userId: number) {
         },
       },
     })
-    .then((data) => {
-      return data.map((user) => user.follower);
+    .then((data: any) => {
+      return data.map((user: any) => user.follower);
     });
 
   const following = await prisma.userFollower
@@ -71,8 +71,8 @@ export async function getFollowingUsers(userId: number) {
         },
       },
     })
-    .then((data) => {
-      return data.map((user) => user.following);
+    .then((data: any) => {
+      return data.map((user: any) => user.following);
     });
 
   return {
