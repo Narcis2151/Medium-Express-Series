@@ -11,9 +11,11 @@ npx tsc --init
 ## Install the dependencies
 
 ```bash
-yarn add express zod config cors express prisma bcrypt jsonwebtoken dotenv dayjs pino
+yarn add express zod config cors express prisma bcrypt jsonwebtoken dotenv dayjs pino passport passport-google-oauth20 swagger-jsdoc swagger-ui-express
+```
 
-yarn add @types/body-parser @types/config @types/cors @types/express @types/node @types/bcrypt @types/jsonwebtoken @types/pino ts-node-dev typescript -D
+```bash
+yarn add @types/body-parser @types/config @types/cors @types/express @types/node @types/bcrypt @types/jsonwebtoken @types/pino ts-node-dev typescript jest supertest ts-jest @types/supertest @types/jest @types/swagger-jsdoc @types/swagger-ui-express @types/passport @types/passport-google-oauth20 -D
 ```
 
 ## Initialize Prisma
@@ -27,7 +29,7 @@ npx prisma init
 ```
 "scripts": {
     "build": "tsc",
-    "start": "node dist/app.js",
+    "start": "node build/app.js",
     "dev": "tsnd --respawn --transpile-only src/app.ts"
 }
 ```
