@@ -51,6 +51,11 @@ jobs:
           docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/api-image .
           docker push gcr.io/${{ secrets.GCP_PROJECT }}/api-image
 
+      - name: Debug Environment Variables
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
+
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy express-series \
