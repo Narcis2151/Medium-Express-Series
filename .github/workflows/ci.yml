@@ -44,6 +44,7 @@ jobs:
             --region=europe-central2 \
             --member="allUsers" \
             --role="roles/run.invoker"
+          
 
       - name: Build and Push Docker image
         run: |
@@ -51,16 +52,12 @@ jobs:
           docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/api-image .
           docker push gcr.io/${{ secrets.GCP_PROJECT }}/api-image
 
-      - name: Debug Environment Variables
-        run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
-          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
-
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy express-series \
             --image gcr.io/${{ secrets.GCP_PROJECT }}/api-image \
             --region europe-central2 \
             --allow-unauthenticated \
+            --service-account express-series-434010@appspot.gserviceaccount.com \
             --port 3000 \
             --set-secrets=DATABASE_URL=DATABASE_URL:latest,GOOGLE_CLIENT_ID=GOOGLE_CLIENT_ID:latest,GOOGLE_CLIENT_SECRET=GOOGLE_CLIENT_SECRET:latest
