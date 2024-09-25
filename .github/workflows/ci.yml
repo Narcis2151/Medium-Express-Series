@@ -61,6 +61,6 @@ jobs:
           gcloud run deploy express-series \
             --image gcr.io/${{ secrets.GCP_PROJECT }}/api-image \
             --region europe-central2 \
-            --allow-unauthenticated
-            --port 3000
-            --set-env-vars set-env-vars "^@^DATABASE_URL=${{secrets.DATABASE_URL}}@GOOGLE_CLIENT_ID=${{secrets.GOOGLE_CLIENT_ID}}@GOOGLE_CLIENT_SECRET=${{secrets.GOOGLE_CLIENT_SECRET}}"
+            --allow-unauthenticated \
+            --port 3000 \
+            --set-secrets=DATABASE_URL=DATABASE_URL:latest,GOOGLE_CLIENT_ID=GOOGLE_CLIENT_ID:latest,GOOGLE_CLIENT_SECRET=GOOGLE_CLIENT_SECRET:latest
