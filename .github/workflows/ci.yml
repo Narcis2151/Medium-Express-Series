@@ -47,7 +47,7 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          
+
           docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/api-image .
           docker push gcr.io/${{ secrets.GCP_PROJECT }}/api-image
 
@@ -63,6 +63,4 @@ jobs:
             --region europe-central2 \
             --allow-unauthenticated
             --port 3000
-            --set-env-vars "DATABASE_URL=${{ secrets.DATABASE_URL }}" \
-            --set-env-vars "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" \
-            --set-env-vars "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
+            --set-env-vars set-env-vars "^@^DATABASE_URL=${{secrets.DATABASE_URL}}@GOOGLE_CLIENT_ID=${{secrets.GOOGLE_CLIENT_ID}}@GOOGLE_CLIENT_SECRET=${{secrets.GOOGLE_CLIENT_SECRET}}"
