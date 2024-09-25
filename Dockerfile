@@ -20,4 +20,6 @@ RUN npx prisma generate
 
 RUN yarn build
 
+EXPOSE 3000
+
 CMD ["node", "build/src/app.js"]
