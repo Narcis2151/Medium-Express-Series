@@ -38,6 +38,13 @@ jobs:
           gcloud auth configure-docker --quiet;
           gcloud auth configure-docker europe-docker.pkg.dev;
 
+      - name: Add IAM policy binding
+        run: |
+          gcloud run services add-iam-policy-binding express-series \
+            --region=europe-central2 \
+            --member="allUsers" \
+            --role="roles/run.invoker"
+
       - name: Build and Push Docker image
         run: |
           
