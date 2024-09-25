@@ -1,0 +1,10 @@
+services:
+  medium-express-api:
+    container_name: medium-express-api
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    build:
+        context: ./ 
+    ports:
+      - "3000:3000"
